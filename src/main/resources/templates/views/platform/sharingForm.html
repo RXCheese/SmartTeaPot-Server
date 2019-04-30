@@ -1,0 +1,110 @@
+<div class="smart-widget widget-dark-blue margin-md">
+    <div class="smart-widget-header">味道信息</div>
+    <div class="smart-widget-inner">
+        <div class="smart-widget-body">
+            <form name="sharingForm" class="form-horizontal no-margin" id="type-constraint" data-validate="parsley"
+                  novalidate>
+                <div class="form-group"
+                     ng-class="sharingForm.configName.$invalid && sharingForm.configName.$dirty ? 'has-error': ''">
+                    <label class="control-label col-lg-3">味道:</label>
+                    <div class="col-lg-9">
+                        <input name="configName" ng-model="sharing.configName" type="text"
+                               class="form-control input-sm" placeholder="味道" minlength="2" maxlength="8" required>
+                        <label class="control-label" ng-show="sharingForm.configName.$invalid && sharingForm.configName.$dirty">味道名长度为2-8个字符</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-3">分享者:</label>
+                    <div class="col-lg-9">
+                        <input name="author" type="text" readonly="readonly" ng-value="currentAdmin.username"
+                               class="form-control input-sm" placeholder="分享者">
+                    </div>
+                </div>
+
+                <div class="form-group"
+                     ng-class="sharingForm.leaf.$invalid && sharingForm.leaf.$dirty ? 'has-error': ''">
+                    <label class="control-label col-lg-3">茶叶</label>
+                    <div class="col-lg-9">
+                        <!--<input name="leaf" ng-model="sharing.leaf" type="text"-->
+                               <!--class="form-control input-sm" placeholder="茶叶" required>-->
+                        <div>
+                            <select name="leaf" ng-model="sharing.leaf" class="form-control input-sm"
+                                    required>
+                                <option value="" hidden></option>
+                                <option value="碧螺春" >碧螺春</option>
+                                <option value="信阳毛尖" >信阳毛尖</option>
+                                <option value="西湖龙井" >西湖龙井</option>
+                                <option value="君山银针" >君山银针</option>
+                                <option value="黄山毛峰" >黄山毛峰</option>
+                                <option value="武夷岩茶" >武夷岩茶</option>
+                                <option value="祁门红茶" >祁门红茶</option>
+                                <option value="都匀毛尖" >都匀毛尖</option>
+                                <option value="铁观音" >铁观音</option>
+                                <option value="六安瓜片" >六安瓜片</option>
+                                <!--<option value="奶茶" >奶茶</option>-->
+                                <option value="其他" >其他</option>
+                            </select>
+                        </div>
+                        <label class="control-label" ng-show="sharingForm.leaf.$invalid && sharingForm.leaf.$dirty">茶叶不能为空</label>
+                    </div>
+                </div>
+
+                <div class="form-group"
+                     ng-class="sharingForm.taste.$invalid && sharingForm.taste.$dirty ? 'has-error': ''">
+                    <label class="control-label col-lg-3">浓度</label>
+                    <div class="col-lg-9">
+                        <div>
+                            <select name="taste" ng-model="sharing.taste" class="form-control input-sm"
+                                    required>
+                                <option value="" hidden></option>
+                                <option value="偏淡" >偏淡</option>
+                                <option value="适中" >适中</option>
+                                <option value="偏浓" >偏浓</option>
+                            </select>
+                        </div>
+                        <label class="control-label" ng-show="sharingForm.taste.$invalid && sharingForm.taste.$dirty">浓度不能为空</label>
+                    </div>
+                </div>
+
+                <div class="form-group"
+                     ng-class="sharingForm.temperature.$invalid && sharingForm.temperature.$dirty ? 'has-error': ''">
+                    <label class="control-label col-lg-3">泡茶温度:</label>
+                    <div class="col-lg-9">
+                        <input name="temperature" ng-model="sharing.temperature" type="number" min="0" max="100" minlength="1" maxlength="3" ng-value="sharing.temperature"
+                               class="form-control input-sm" placeholder="泡茶温度" required>
+                        <div>
+                            <label class="control-label" ng-show="sharingForm.temperature === 0 && sharingForm.temperature.$invalid && sharingForm.temperature.$dirty">泡茶温度为0-100</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group"
+                     ng-class="sharingForm.constantTime.$invalid && sharingForm.constantTime.$dirty ? 'has-error': ''">
+                    <label class="control-label col-lg-3">泡茶时长:</label>
+                    <div class="col-lg-9">
+                        <div>
+                            <select name="constantTime" ng-model="sharing.constantTime" class="form-control input-sm"
+                                    required>
+                                <option value="" hidden></option>
+                                <option value="2分钟" >2分钟</option>
+                                <option value="3分钟" >3分钟</option>
+                                <option value="4分钟" >4分钟</option>
+                                <option value="5分钟" >5分钟</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="control-label" ng-show="sharingForm.constantTime.$invalid && sharingForm.constantTime.$dirty">泡茶时长不能为空</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-right m-top-md">
+                    <button ng-click="save(sharing)" class="btn btn-success btn-sm" ng-disabled="sharingForm.$invalid"><i
+                            class="fa fa-save m-right-xs"></i>保存
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

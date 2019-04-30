@@ -1,0 +1,164 @@
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+      <title>SmartTeaPot Register</title>
+
+      <style>
+          body{
+              background-image: url(images/background2.jpg);
+              background-size:100% 100%;
+              background-repeat:no-repeat;
+          }
+      </style>
+
+    <!-- Bootstrap core CSS -->
+      <link th:href="@{css/bootstrap.min.css}" href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+      <link th:href="@{css/floatinglabels.css}" href="css/floatinglabels.css" rel="stylesheet" type="text/css">
+
+    <!--&lt;!&ndash; Angular&ndash;&gt;-->
+      <!--<script th:src="@{scripts/framework/angular.min.js}" src="scripts/framework/angular.min.js"></script>-->
+      <!--<script type="text/javascript" th:inline="javascript">-->
+      <!--</script>-->
+  </head>
+
+  <body>
+
+  <form class="form-signin" id="signup" name="signup" th:object="${user}" action="/register" th:action="@{/register}" method="post" enctype="utf8">
+      <div class="text-center mb-4">
+
+        <h1 class="h3 mb-3 font-weight-bold" style="color:#ffffff">SmartTeaPot</h1>
+          </div>
+
+      <div class="form-label-group">
+        <input type="text" id="username" th:field="*{username}" name="username" class="form-control" minlength="4" maxlength="12" placeholder="Username" data-container="body" required autofocus>
+          <label for="username">Username(字母为首,长度为4-12位,不包含特殊字符)</label>
+          <p style="color: red" class="error" th:each="error: ${#fields.errors('username')}"
+             th:text="${error}"></p>
+      </div>
+
+      <div class="form-label-group">
+        <input type="password" th:field="*{password}" id="password" name="password" class="form-control" minlength="6" maxlength="12" placeholder="Password" required>
+        <label for="password">Password(6-12)</label>
+          <p style="color: red" class="error" th:each="error : ${#fields.errors('password')}"
+             th:text="${error}"></p>
+      </div>
+
+      <div class="form-label-group">
+          <input type="password" th:field="*{confirmPwd}" id="confirmPwd" name="confirmPwd" class="form-control" minlength="6" maxlength="12" placeholder="Confirm Password" required>
+          <label for="confirmPwd">Confirm Password</label>
+          <p style="color: red" class="error" th:errors="*{confirmPwd}"></p>
+      </div>
+
+      <div class="form-label-group">
+          <input type="email" th:field="*{email}" id="email" name="email" class="form-control" placeholder="Email" required>
+          <label for="email">Email</label>
+          <p style="color: red" class="error" th:each="error : ${#fields.errors('email')}"
+             th:text="${error}"></p>
+      </div>
+
+      <div class="form-label-group">
+          <input type="text" th:field="*{phone}" id="phone" name="phone" class="form-control" minlength="11" maxlength="11"  placeholder="Phone" required>
+          <label for="phone">Phone</label>
+          <p style="color: red" class="error" th:each="error : ${#fields.errors('phone')}"
+             th:text="${error}"></p>
+      </div>
+
+
+      <div class="checkbox mb-3">
+
+      </div>
+      <div class="custom-control custom-checkbox">
+          <a href="signIn" class="badge badge-light float-right">Sign In</a>
+      </div>
+      <div class="checkbox mb-3">
+
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+
+</form>
+
+    <input type="hidden" th:value="${result}" id="regResult">
+
+  <style>
+
+      .modal-dialog {
+          width: 400px;
+          margin:50px auto;
+      }
+
+  </style>
+
+  <!-- 模态框（Modal） -->
+  <div class="modal fade" id="msgModal" tabindex="-1" role="dialog" aria-labelledby="msgModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">-->
+                  <!--&times;-->
+                  <!--</button>-->
+                  <h4 class="modal-title" id="msgModalLabel">
+                      操作提示
+                  </h4>
+              </div>
+              <div class="modal-body">
+                  <span id="msgSpan"></span>
+              </div>
+              <div class="modal-footer">
+                  <!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭-->
+                  <!--</button>-->
+                  <button type="button" class="btn btn-primary" id="msgBtn">
+                      确定
+                  </button>
+              </div>
+          </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+  </div>
+
+  </body>
+
+  <script th:src="@{scripts/framework/jquery-2.1.4.js}" src="scripts/framework/jquery-2.1.4.js"></script>
+  <script th:src="@{scripts/framework/bootstrap.min.js}" src="scripts/framework/bootstrap.min.js"></script>
+
+    <script  th:inline="javascript" type="text/javascript">
+
+        //模态框居中函数
+        function centerModals() {
+            $('#msgModal').each(function(i) {
+                var $clone = $(this).clone().css('display','block').appendTo('body');
+                var top = Math.round(($clone.height() - $clone.find('.modal-content').height()) / 2);
+                top = top > 0 ? top : 0;
+                $clone.remove();
+                $(this).find('.modal-content').css("margin-top", top);
+            });
+        };
+
+        //当模态框show时立即触发居中函数
+        $('#msgModal').on('show.bs.modal', centerModals);
+
+        //禁用空白处点击关闭
+        $('#msgModal').modal({
+            backdrop: 'static',
+            keyboard: false,//禁止键盘
+            show:false
+        });
+
+        //页面大小变化是仍然保证模态框水平垂直居中
+        $(window).on('resize', centerModals);
+
+        var result = $("#regResult").val();
+        if (result === "true")
+        {
+            $('#msgSpan').text("注册成功，点击确定返回到登录页。")
+            $('#msgBtn').click(function () {
+                $(window).attr("location", 'signIn');
+            });
+            $('#msgModal').modal('show');
+        }
+
+    </script>
+
+</html>

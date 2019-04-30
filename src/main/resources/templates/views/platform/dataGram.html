@@ -1,0 +1,166 @@
+<div class="row">
+    <div class="col-lg-6">
+
+        <div class="smart-widget widget-dark-blue">
+            <div class="smart-widget-header">设备历史数据--(共{{dataPageInfo.totalElements}}条数据)</div>
+            <div class="smart-widget-inner">
+                <div class="smart-widget-body">
+                    <button type="button" class="btn btn-success btn-sm" ng-click="isConditionCollapsed = !isConditionCollapsed">
+                        <i class="fa fa-search m-right-xs"></i>查询
+                    </button>
+                    <button ng-click="refreshData()" class="btn btn-success btn-sm" ng-disabled="getQueBtn" >
+                        <i class="fa fa-refresh m-right-xs"></i>更新记录
+                    </button>
+                </div>
+                <div uib-collapse="isConditionCollapsed" style="padding-left: 20px;padding-right: 20px;">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div style="float:right; margin-top: 7px;">
+                                <a href="javascript:" ng-click="isConditionCollapsed = !isConditionCollapsed" class="widget-remove-option"><i class="fa fa-times"></i></a>
+                            </div>
+
+                            <div>
+                                <form class="form-inline no-margin" novalidate>
+                                    <div class="form-group">时间:
+                                        <input ng-model="dataCondition.queryTimeForm" type="date" class="form-control input-sm" placeholder="从">
+                                        -
+                                        <input ng-model="dataCondition.queryTimeTo" type="date" class="form-control input-sm" placeholder="到">
+                                        -
+                                        <input ng-model="dataCondition.updatedAt" type="text" class="form-control input-sm" placeholder="模糊时间">
+                                    </div>
+                                    <!--<button ng-click="queryAllData(dataCondition)" class="btn btn-sm btn-success" ng-disabled="!dataCondition.queryTimeForm || (dataCondition.queryTimeForm > dataCondition.queryTimeTo)"><i class="fa fa-search m-right-xs" ></i>查询</button>-->
+                                    <!--<button ng-click="cleanDataCondition()" class="btn btn-sm btn-warning"><i class="ion-close m-right-xs"></i>清空</button>-->
+                                </form>
+                            </div>
+                            <br/>
+                            <div>
+                                <form class="form-inline no-margin" novalidate>
+                                    <div class="form-group">选择项：
+                                        <select ng-model="dataCondition.online"  class="form-control input-sm">
+                                            <option value="" >连接</option>
+                                            <option value="在线">在线</option>
+                                            <option value="离线">离线</option>
+                                        </select>
+                                        <select ng-model="dataCondition.heatingOrNot"  class="form-control input-sm">
+                                            <option value="">状态</option>
+                                            <option value="待机">待机</option>
+                                            <option value="工作中">工作中</option>
+                                        </select>
+                                        <select ng-model="dataCondition.heatintSwitch"  class="form-control input-sm">
+                                            <option value="" >电源</option>
+                                            <option value="开">开</option>
+                                            <option value="关">关</option>
+                                        </select>
+                                        <select ng-model="dataCondition.taste" class="form-control input-sm">
+                                            <option value="" >浓度</option>
+                                            <option value="偏淡">偏淡</option>
+                                            <option value="适中">适中</option>
+                                            <option value="偏浓">偏浓</option>
+                                        </select>
+                                        <select ng-model="dataCondition.constantTime"  class="form-control input-sm">
+                                            <option value="" >泡茶时长</option>
+                                            <option value="2分钟">2分钟</option>
+                                            <option value="3分钟">3分钟</option>
+                                            <option value="4分钟">4分钟</option>
+                                            <option value="5分钟">5分钟</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                            <br/>
+                            <div>
+                                <form class="form-inline no-margin" novalidate>
+                                    <div class="form-group">输入项(模糊)：
+                                        <!--<select id="dataCondType" ng-model="dataCondition.type" class="form-control input-sm">-->
+                                            <!--<option value="updatedAt">时间</option>-->
+                                            <!--<option value="online" >连接</option>-->
+                                            <!--<option value="heatingOrNot">状态</option>-->
+                                            <!--<option value="heatintSwitch">电源</option>-->
+                                            <!--<option value="temperature">设定温度</option>-->
+                                            <!--<option value="temp">当前温度</option>-->
+                                            <!--<option value="taste">浓度</option>-->
+                                            <!--<option value="constantTime">泡茶时长</option>-->
+                                            <!--<option value="constantTimeRemainder">剩余时长</option>-->
+                                        <!--</select>-->
+
+                                        <input ng-model="dataCondition.temperature" type="number" style="width: 100px" min="0" max="100" minlength="1" maxlength="3" class="form-control input-sm" placeholder="设定温度">
+                                        <input ng-model="dataCondition.temp" type="number" style="width: 100px" min="0" max="100" minlength="1" maxlength="3" class="form-control input-sm" placeholder="当前温度">
+                                        <input ng-model="dataCondition.constantTimeRemainder" style="width: 100px" type="number" min="0" max="100" minlength="1" maxlength="3" class="form-control input-sm" placeholder="剩余时长">
+
+
+
+                                    </div>
+                                    <button ng-click="search(dataCondition)" class="btn btn-sm btn-success" ><i class="fa fa-search m-right-xs"></i>查询</button>
+                                    <button ng-click="cleanDataCondition()" class="btn btn-sm btn-warning"><i class="ion-close m-right-xs"></i>清空</button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="dataPageInfo.totalElements > 0">
+                    <div class="smart-widget-body">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th width="50">序号</th>
+                                <th>时间</th>
+                                <th>连接</th>
+                                <th>状态</th>
+                                <th>电源</th>
+                                <th>设定温度(℃)</th>
+                                <th>当前温度(℃)</th>
+                                <th>浓度</th>
+                                <th>泡茶时长</th>
+                                <th>剩余时长(秒)</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat = " ad in allData ">
+                                <td>{{$index+1}}</td>
+                                <td>{{ad.updatedAt}}</td>
+                                <td style="color: green" ng-if="ad.online==='在线'">
+                                    {{ad.online}}</td>
+                                <td style="color: red" ng-if="ad.online==='离线'">
+                                    {{ad.online}}</td>
+                                <td>{{ad.heatingOrNot}}</td>
+                                <td style="color: green" ng-if="ad.heatintSwitch==='开'">
+                                    {{ad.heatintSwitch}}</td>
+                                <td style="color: red" ng-if="ad.heatintSwitch==='关'">
+                                    {{ad.heatintSwitch}}</td>
+                                <td>{{ad.temperature}}</td>
+                                <td>{{ad.temp}}</td>
+                                <td>{{ad.taste}}</td>
+                                <td>{{ad.constantTime}}</td>
+                                <td>{{ad.constantTimeRemainder}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="margin-top: -30px; margin-left: 20px; margin-bottom: 20px;">
+                        <uib-pagination total-items="dataPageInfo.totalElements" num-pages="dataPageInfo.totalPages" ng-model="dataPageInfo.page" max-size="dataPageInfo.maxSize"
+                                        items-per-page="dataPageInfo.size" class="pagination-sm" boundary-links="true" force-ellipses="true" ng-change="changeDataPage()" ng-disabled="dataPageInfo.totalElements <= 0"
+                                        first-text="首页" last-text="末页" next-text="后页" previous-text="前页"></uib-pagination>
+                    </div>
+                </div>
+                <div class="smart-widget-body" ng-hide="dataPageInfo.totalElements > 0">
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <i class="fa fa-exclamation-circle m-right-xs"></i> <strong>没有查询到任何数据,请修改查询条件并重试</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="smart-widget widget-dark-blue">
+            <div class="smart-widget-header">历史温度数据统计</div>
+            <div class="smart-widget-inner">
+                <div id="dataChart" style="width: 800px;height:800px;"></div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+

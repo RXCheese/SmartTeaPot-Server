@@ -1,0 +1,121 @@
+<div class="row">
+    <div class="col-lg-3">
+        <div class="smart-widget widget-dark-blue">
+            <div class="smart-widget-header">茶壶控制</div>
+            <div class="smart-widget-inner">
+                <div class="smart-widget-body" style="height:499px;" >
+
+                    <!--<div class="overflow-hidden" style="height: {{panelHeight +59}}px; overflow: auto;">-->
+
+                        <div ><a>浓度：{{taste}}</a>
+                            <input id="taste" ng-model="taste" ng-hide="true"/>
+                        <br/><br/>
+                            <button type="button" ng-click="tasteClick($event)" name="taste" class="btn btn-default" value="偏浓">偏浓</button>
+                            <button type="button" ng-click="tasteClick($event)" name="taste" class="btn btn-default" value="适中">适中</button>
+                            <button type="button" ng-click="tasteClick($event)" name="taste" class="btn btn-default" value="偏淡">偏淡</button>
+                        </div>
+                        <hr/>
+
+                        <div ><a>泡茶时长：{{constantTime}}</a>
+                            <input id="constantTime" ng-model="constantTime" ng-hide="true"/>
+                        <br/><br/>
+                            <button type="button" ng-click="constantTimeClick($event)" name="constantTime" class="btn btn-default" value="2分钟">2分钟</button>
+                            <button type="button" ng-click="constantTimeClick($event)" name="constantTime" class="btn btn-default" value="3分钟">3分钟</button>
+                            <button type="button" ng-click="constantTimeClick($event)" name="constantTime" class="btn btn-default" value="4分钟">4分钟</button>
+                            <button type="button" ng-click="constantTimeClick($event)" name="constantTime" class="btn btn-default" value="5分钟">5分钟</button>
+                        </div>
+                        <hr/>
+
+                        <div><a>泡茶温度：</a>
+                            <button ng-click="temperature=temperature*1-1" class="mce-btn-small"><i class="fa fa-minus"></i></button>
+                            <a id="currentTemp" min="0" max="100" type="number" ng-model="temperature" style="width:50px" >{{temperature}}</a>℃
+                            <button ng-click="temperature=temperature*1+1" class="mce-btn-small"><i class="fa fa-plus"></i></button>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <input id="temperature" type="range" min="0" max="100" style="width:200px" ng-model="temperature"/>
+                        </div>
+                        <hr/>
+
+                        <div><a>电源：{{heatintSwitch}}</a>
+                            <input id="heatintSwitch" ng-model="heatintSwitch" ng-hide="true" />
+                        <br/><br/>
+                            <button type="button" ng-click="heatintSwitchClick($event)" name="heatintSwitch" class="btn btn-default" value="true">开</button>
+                            <button type="button" ng-click="heatintSwitchClick($event)" name="heatintSwitch" class="btn btn-default" value="false">关</button>
+                        </div>
+                    <!--</div>-->
+                </div>
+                <div class="smart-widget-body">
+                    <hr/>
+                    <button ng-click="executeOp()" class="btn btn-success btn-sm" ng-disabled="extBtn" >
+                        <i class="fa fa-upload m-right-xs"></i>提交操作
+                    </button>
+                    <button ng-click="sharing()" class="btn btn-success btn-sm" >
+                        <i class="fa fa-share m-right-xs"></i>分享当前味道
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="smart-widget widget-dark-blue">
+            <div class="smart-widget-header">茶壶当前状态</div>
+            <div class="smart-widget-inner">
+                <div class="smart-widget-body" style="height:499px;" >
+
+                    <div >状态更新时间：<a >{{status.updatedAt}}</a></div><br/>
+
+                    <div >连接状态：<a ng-style="{'color': isOnline}" >{{status.online}}</a></div><hr/>
+
+                    <div >工作状态：<a >{{status.heatingOrNot}}</a></div><br/>
+
+                    <div >电源开关：
+                        <a style="color: green" ng-if="status.heatintSwitch==='开'">
+                            {{status.heatintSwitch}}</a>
+                        <a style="color: red" ng-if="status.heatintSwitch==='关'">
+                            {{status.heatintSwitch}}</a>
+                    </div><hr/>
+
+                    <div >泡茶温度：<a >{{status.temperature}}℃</a></div><br/>
+                    <div >当前温度：<a >{{status.temp}}℃</a></div><hr/>
+                    <div >设定浓度：<a >{{status.taste}}</a></div><hr/>
+                    <div >泡茶时长：<a >{{status.constantTime}}</a></div><br/>
+                    <div >剩余时长：<a >{{status.constantTimeRemainder}}秒</a></div><hr/>
+                </div>
+                <div class="smart-widget-body">
+                    <hr/>
+                    <button ng-click="getLatestStatus()" class="btn btn-success btn-sm" ng-disabled="getBtn" >
+                        <i class="fa fa-refresh m-right-xs"></i>更新状态
+                    </button>
+                    <!--<button  ng-click="autoStatus(auto)" class="btn btn-success btn-sm" >-->
+                        <!--<i class="fa fa-spinner m-right-xs"></i>自动更新状态-->
+                    <!--</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="smart-widget widget-dark-blue">
+            <div class="smart-widget-header">最近温度状态图</div>
+            <div class="smart-widget-inner">
+                <div id="potChart" style="width: 800px;height:600px;"></div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(function(){
+        $("button.btn-default").click(function () {
+            $(this).nextAll().removeClass("btn-primary").addClass("btn-default");
+            $(this).prevAll().removeClass("btn-primary").addClass("btn-default");
+            $(this).removeClass("btn-default").addClass("btn-primary");
+            $(this).parent().val($(this).val());
+        })
+    })
+
+</script>

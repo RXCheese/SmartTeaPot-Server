@@ -1,0 +1,61 @@
+<div class="smart-widget widget-dark-blue margin-md">
+    <div class="smart-widget-header">用户信息</div>
+    <div class="smart-widget-inner">
+        <div class="smart-widget-body">
+            <form name="adminForm" class="form-horizontal no-margin" id="type-constraint" data-validate="parsley" ng-init="checkType(type)"
+                  novalidate>
+                <div class="form-group"
+                     ng-class="adminForm.username.$invalid && adminForm.username.$dirty ? 'has-error': ''">
+                    <label class="control-label col-lg-3">用户名:</label>
+                    <div class="col-lg-9">
+                        <input name="username" ng-model="admin.username" type="text" ng-disabled="isDisabled" ng-pattern="/^[A-Za-z][A-Za-z0-9]{3,11}$/"
+                               class="form-control input-sm" placeholder="用户名" required>
+                        <label class="control-label" ng-show="adminForm.username.$invalid && adminForm.username.$dirty">用户名需要字母开头,长度为4-12位,不包含特殊字符</label>
+                    </div>
+                </div>
+
+                <div class="form-group"
+                     ng-class="adminForm.roleId.$invalid && adminForm.roleId.$dirty ? 'has-error': ''">
+                    <label class="control-label col-lg-3">角色:</label>
+                    <div class="col-lg-9">
+                        <div>
+                            <select name="roleId" ng-model="admin.roleId" ng-disabled="roleDisabled"
+                                    ng-options="role.id as role.name for role in roles" class="form-control input-sm"
+                                    required>
+                                <option value="" hidden></option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="control-label" ng-show="adminForm.roleId.$invalid && adminForm.roleId.$dirty">角色不能为空</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group"
+                     ng-class="adminForm.email.$invalid && adminForm.email.$dirty ? 'has-error': ''">
+                    <label class="control-label col-lg-3">邮箱</label>
+                    <div class="col-lg-9">
+                        <input name="email" ng-model="admin.email" type="email" ng-disabled="infoDisabled"
+                               class="form-control input-sm" placeholder="邮箱" required>
+                        <label class="control-label" ng-show="adminForm.email.$invalid && adminForm.email.$dirty">邮箱格式错误</label>
+                    </div>
+                </div>
+
+                <div class="form-group"
+                     ng-class="adminForm.phone.$invalid && adminForm.phone.$dirty ? 'has-error': ''">
+                    <label class="control-label col-lg-3">手机号码</label>
+                    <div class="col-lg-9">
+                        <input name="phone" ng-model="admin.phone" type="text" ng-disabled="infoDisabled" ng-pattern="/^0?(13|14|15|17|18|19)[0-9]{9}$/"
+                               class="form-control input-sm" placeholder="手机号码" required>
+                        <label class="control-label" ng-show="adminForm.phone.$invalid && adminForm.phone.$dirty">手机号码格式错误</label>
+                    </div>
+                </div>
+                <div class="text-right m-top-md">
+                    <button ng-click="save(admin)" class="btn btn-success btn-sm" ng-disabled="adminForm.$invalid"><i
+                            class="fa fa-save m-right-xs"></i>保存
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

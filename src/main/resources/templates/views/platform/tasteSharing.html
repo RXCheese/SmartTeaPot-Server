@@ -1,0 +1,145 @@
+<div class="row">
+    <div class="col-lg-6">
+
+        <div class="smart-widget widget-dark-blue">
+            <div class="smart-widget-header">味道分享站--(共{{sharingPageInfo.totalElements}}种味道分享)</div>
+            <div class="smart-widget-inner">
+                <div class="smart-widget-body">
+                    <button ng-click="create()" class="btn btn-success btn-sm">
+                        <i class="ion-plus m-right-xs"></i>新建味道
+                    </button>
+                    <button ng-click="refreshData()" class="btn btn-sm btn-success"><i
+                            class="fa fa-refresh m-right-xs"></i>更新味道库
+                    </button>
+                    <button type="button" class="btn btn-success btn-sm"
+                            ng-click="isConditionCollapsed = !isConditionCollapsed">
+                        <i class="fa fa-search m-right-xs"></i>查询
+                    </button>
+                </div>
+                <div uib-collapse="isConditionCollapsed" style="padding-left: 20px;padding-right: 20px;">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div style="float:right; margin-top: 7px;">
+                                <a href="javascript:" ng-click="isConditionCollapsed = !isConditionCollapsed"
+                                   class="widget-remove-option"><i class="fa fa-times"></i></a>
+                            </div>
+                            <div>
+                                <form class="form-inline no-margin" novalidate>
+                                    <div class="form-group">
+                                        <input ng-model="sharingCondition.configName" type="text"
+                                               class="form-control input-sm" placeholder="味道">
+                                    </div>
+                                    <div class="form-group">
+                                        <input ng-model="sharingCondition.author" type="text"
+                                               class="form-control input-sm" placeholder="分享者">
+                                    </div>
+                                    <select ng-model="sharingCondition.leaf" class="form-control input-sm">
+                                        <option value="" >所有茶叶</option>
+                                        <option value="碧螺春" >碧螺春</option>
+                                        <option value="信阳毛尖" >信阳毛尖</option>
+                                        <option value="西湖龙井" >西湖龙井</option>
+                                        <option value="君山银针" >君山银针</option>
+                                        <option value="黄山毛峰" >黄山毛峰</option>
+                                        <option value="武夷岩茶" >武夷岩茶</option>
+                                        <option value="祁门红茶" >祁门红茶</option>
+                                        <option value="都匀毛尖" >都匀毛尖</option>
+                                        <option value="铁观音" >铁观音</option>
+                                        <option value="六安瓜片" >六安瓜片</option>
+                                        <option value="其他" >其他</option>
+                                    </select>
+                                    <select ng-model="sharingCondition.taste"  class="form-control input-sm">
+                                        <option value="" >所有浓度</option>
+                                        <option value="偏淡">偏淡</option>
+                                        <option value="适中">适中</option>
+                                        <option value="偏浓">偏浓</option>
+                                    </select>
+                                    <button ng-click="search(sharingCondition)" class="btn btn-sm btn-success"><i
+                                            class="fa fa-search m-right-xs"></i>查询
+                                    </button>
+                                    <button ng-click="cleanSharingCondition()" class="btn btn-sm btn-warning"><i
+                                            class="ion-close m-right-xs"></i>清空
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="sharingPageInfo.totalElements > 0">
+                    <div class="smart-widget-body">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th width="50">序号</th>
+                                <th>味道</th>
+                                <th>分享者</th>
+                                <th>茶叶</th>
+                                <th>泡茶浓度</th>
+                                <th>泡茶温度</th>
+                                <th>泡茶时间</th>
+                                <th width="200">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+<tr ng-repeat="sharing in sharings">
+    <td>{{$index+1}}</td>
+    <td>{{sharing.configName}}</td>
+    <td>{{sharing.author}}</td>
+    <td>{{sharing.leaf}}</td>
+    <td>{{sharing.taste}}</td>
+    <td>{{sharing.temperature}}</td>
+    <td>{{sharing.constantTime}}</td>
+    <td>
+        <button class="btn btn-success btn-xs" ng-click="applySharing(sharing)">
+            <i class="ion-coffee m-right-xs"></i>享受
+        </button>
+        <button class="btn btn-warning btn-xs" ng-click="update(sharing)"
+                ng-if="(currentAdmin.username === sharing.author)">
+            <i class="ion-edit m-right-xs"></i>修改
+        </button>
+        <button class="btn btn-danger btn-xs" ng-click="remove(sharing)"
+                ng-if="(currentAdmin.username === sharing.author) || (currentAdmin.username === 'admin')">
+            <i class="ion-trash-a m-right-xs"></i>删除
+        </button>
+    </td>
+</tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="margin-top: -30px; margin-left: 20px; margin-bottom: 20px;">
+                        <uib-pagination total-items="sharingPageInfo.totalElements"
+                                        num-pages="sharingPageInfo.totalPages" ng-model="sharingPageInfo.page"
+                                        max-size="sharingPageInfo.maxSize" items-per-page="sharingPageInfo.size"
+                                        class="pagination-sm" boundary-links="true" force-ellipses="true"
+                                        ng-change="changePage()" ng-disabled="sharingPageInfo.totalElements <= 0"
+                                        first-text="首页" last-text="末页" next-text="后页"
+                                        previous-text="前页"></uib-pagination>
+                    </div>
+                </div>
+                <div class="smart-widget-body" ng-hide="sharingPageInfo.totalElements > 0">
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <i class="fa fa-exclamation-circle m-right-xs"></i> <strong>没有查询到任何数据,请修改查询条件并重试</strong>
+                    </div>
+                </div>
+                <div class="smart-widget-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="smart-widget widget-dark-blue">
+            <div class="smart-widget-header">味道统计</div>
+            <div class="smart-widget-inner">
+                <div class="smart-widget-body">
+                    <div id="leafChart" style="width: 800px;height:350px;"></div>
+                </div>
+                <div class="smart-widget-body">
+                    <div id="configChart" style="width: 800px;height:400px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

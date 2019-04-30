@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+      <title>SmartTeaPot</title>
+
+    <!-- Bootstrap core CSS -->
+      <link th:href="@{css/bootstrap.min.css}" href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+      <link th:href="@{css/floatinglabels.css}" href="css/floatinglabels.css" rel="stylesheet" type="text/css">
+
+      <script type="text/javascript" th:inline="javascript">
+
+      </script>
+  </head>
+    <style>
+        body{
+            background-image: url(images/background.jpg);
+            background-size:100% 100%;
+            background-repeat:no-repeat;
+        }
+
+    </style>
+  <body>
+  <form action="/authentication/form" th:action="@{/authentication/form}"  th:object="${user}" method="post" class="form-signin">
+      <div class="text-center mb-4">
+
+        <h1 class="h3 mb-3 font-weight-bold" style="color:#ffffff">SmartTeaPot</h1>
+          </div>
+
+      <div class="form-label-group">
+        <input type="text" id="account" name="username" th:field="*{username}" class="form-control" minlength="4" maxlength="12" placeholder="Username" required autofocus>
+        <label for="account">Username</label>
+      </div>
+
+      <div class="form-label-group">
+        <input type="password" id="password" name="password" th:field="*{password}" class="form-control" minlength="6" maxlength="12" placeholder="Password" required>
+        <label for="password">Password</label>
+      </div>
+
+      <div class="input-group">
+          <input type="text" id="imageCode" name="imageCode" class="form-control" placeholder="ValidateCode" minlength="4" maxlength="4" aria-describedby="imageCode-addon" required>
+          <div class="input-group-append">
+              <span class="input-group-text " id="imageCode-addon"><img src="/code/image"></span>
+          </div>
+      </div>
+      <div class="checkbox mb-3">
+
+      </div>
+      <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" name="remember-me" id="rememberMe">
+          <label class="custom-control-label" for="rememberMe">Remember Me</label>
+          <a href="register" class="badge badge-light float-right">Sign Up</a>
+      </div>
+      <div class="checkbox mb-3">
+
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+      <div class="checkbox mb-3">
+
+      </div>
+      <div class="text-center mb-4">
+        <span class="h5 mb-3" style="color: red" th:if="${param.error}" th:text="${session?.SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
+      </div>
+      <!--<button class="btn btn-lg btn-primary btn-block" type="button" onclick="window.location.href='register'">-->
+          <!--Sign Up-->
+      <!--</button>-->
+      <!--<p class="mt-5 mb-3 text-light text-center">&copy; 酒阑更喜团茶苦,梦断偏宜瑞脑香</p>-->
+</form>
+  <!---->
+   <!--<div>-->
+
+<!--</div>-->
+  <!--<form action="/authentication/mobile" method="post" class="form-signin">-->
+      <!--<div class="text-center mb-4">-->
+
+          <!--<h1 class="h3 mb-3 font-weight-normal" style="color:#ffffff">SmartTeaPot</h1>-->
+      <!--</div>-->
+
+      <!--<div class="form-label-group">-->
+          <!--<input type="text" id="mobile" name="mobile" class="form-control" placeholder="mobile phone" value="admin" required autofocus>-->
+          <!--<label for="mobile">MobilePhone Number</label>-->
+      <!--</div>-->
+
+      <!--<div class="input-group">-->
+          <!--<input type="text" name="smsCode" class="form-control" placeholder="SmsCode" aria-describedby="smsCode-addon" required>-->
+          <!--<div class="input-group-append">-->
+              <!--<span class="input-group-text" id="smsCode-addon"><a href="/code/sms?mobile=admin">Send SmsCode</a></span>-->
+          <!--</div>-->
+      <!--</div>-->
+      <!--<div class="checkbox mb-3">-->
+
+      <!--</div>-->
+      <!--<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>-->
+      <!--&lt;!&ndash;<button class="btn btn-lg btn-primary btn-block" type="button" onclick="window.location.href='./register'">&ndash;&gt;-->
+  <!--</form>-->
+
+  </body>
+</html>
