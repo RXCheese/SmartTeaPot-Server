@@ -32,7 +32,7 @@ public class StatusController {
     public Status getLatestStatus(){
         Status status;
         boolean online = gizwitsOpenApi.getDeviceOnlineStatus();
-       // if(online){
+        if(online){
             status = gizwitsOpenApi.getLatestStatus();
 
             String time = new String2date().String2date(status.getUpdatedAt());
@@ -55,10 +55,9 @@ public class StatusController {
                 statusService.saveStatus(status);
             }
 
-       // }else {
-            //status = statusService.getLastOne();
-
-        //}
+        }else {
+            status = statusService.getLastOne();
+        }
 
         status.setId(null);
         return status;

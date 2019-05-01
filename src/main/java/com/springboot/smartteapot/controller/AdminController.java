@@ -60,7 +60,6 @@ public class AdminController {
 	 */
 	@PutMapping("/{id}")
 	public AdminInfo update(@RequestBody AdminInfo adminInfo) {
-
 		return adminService.update(adminInfo);
 	}
 
@@ -153,7 +152,12 @@ public class AdminController {
 	 */
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		adminService.delete(id);
+		if(adminService.findByUsername("admin").getId().equals(id)) {
+			System.out.println("管理员被试图进行删除操作");
+		}
+		else {
+			adminService.delete(id);
+		}
 	}
 
 	/**

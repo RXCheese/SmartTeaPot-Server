@@ -47,6 +47,8 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public RoleInfo update(RoleInfo info) {
 		Role role = roleRepository.findById(info.getId()).get();
+		if(role.getName().equals("admin"))
+			return info;
 		BeanUtils.copyProperties(info, role);
 		return info;
 	}
@@ -57,7 +59,7 @@ public class RoleServiceImpl implements RoleService {
 		Role role = roleRepository.findById(id).get();
 		if(CollectionUtils.isNotEmpty(role.getAdmins())){
 			//throw new RuntimeException("不能删除有下挂用户的角色");
-			System.out.println("超级管理员正常尝试删除有下挂用户的角色");
+			System.out.println("管理员正常尝试删除有下挂用户的角色");
 			return false;
 		}
 		roleRepository.deleteById(id);

@@ -73,6 +73,7 @@ public class AdminServiceImpl implements AdminService {
 	public AdminInfo update(AdminInfo adminInfo) {
 		
 		Admin admin = adminRepository.findById(adminInfo.getId()).get();
+		adminInfo.setUsername(admin.getUsername());
 		BeanUtils.copyProperties(adminInfo, admin);
 		
 		createRoleAdmin(adminInfo, admin);
@@ -125,7 +126,7 @@ public class AdminServiceImpl implements AdminService {
 		}
 		Page<AdminInfo> adminInfoPage = new PageImpl<>(adminInfoList, admins.getPageable(), admins.getTotalElements());
 		//System.out.println(adminInfoList);
-		return QueryResultConverter.convert(adminInfoPage, AdminInfo.class, pageable);
+		return QueryResultConverter.convert(adminInfoPage, AdminInfo.class, adminInfoPage.getPageable());
 	}
 
 	@Override

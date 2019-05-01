@@ -23,12 +23,18 @@
 						<div class="form-group">
 								<input ng-model="condition.username" type="text" class="form-control input-sm" placeholder="账号">
 						</div>
-						<!-- <div class="form-group">
-								<label class="control-label">角色:</label>
-								<select ng-model="condition.roleId" ng-options="role.id as role.name for role in roles" class="form-control input-sm">
-									<option></option>
-								</select>
-						</div> -->
+						 <!--<div class="form-group">-->
+								<!--<label class="control-label">角色:</label>-->
+								<!--<select ng-model="condition.roleId" ng-options="role.id as role.name for role in roles" class="form-control input-sm">-->
+									<!--<option></option>-->
+								<!--</select>-->
+						<!--</div>-->
+						<div class="form-group">
+							<input ng-model="condition.email" type="text" class="form-control input-sm" placeholder="电子邮箱">
+						</div>
+						<div class="form-group">
+							<input ng-model="condition.phone" type="text" class="form-control input-sm" placeholder="手机号码">
+						</div>
 						<button ng-click="queryAdmin(condition)" class="btn btn-sm btn-success"><i class="fa fa-search m-right-xs"></i>查询</button>
 						<button ng-click="cleanCondition()" class="btn btn-sm btn-warning"><i class="ion-close m-right-xs"></i>清空</button>
 					</form>
@@ -56,7 +62,7 @@
 							<td>{{admin.roleName}}</td>
 							<td>{{admin.email}}</td>
 							<td>{{admin.phone}}</td>
-							<td>
+							<td ng-if="admin.username!='admin'">
 								<button class="btn btn-warning btn-xs" ng-click="update(admin)">
 									<i class="ion-edit m-right-xs"></i>修改
 								</button>

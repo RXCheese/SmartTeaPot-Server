@@ -1,5 +1,5 @@
 'use strict';
-angular.module('platform').controller('adminManageCtrl', function($scope, $uibModal, adminRestService, roleRestService, commonService) {
+angular.module('platform').controller('adminManageCtrl', function($scope, $uibModal, $timeout,adminRestService, roleRestService, commonService) {
 	
 	$scope.pageInfo = commonService.getDefaultPageSetting();
 	
@@ -77,8 +77,12 @@ angular.module('platform').controller('adminManageCtrl', function($scope, $uibMo
 					if(value['username'] === "false" && value['email'] === "false" && value['phone'] === "false")
 					{
                         new adminRestService(formAdmin).$create().then(function(admin){
-                            $scope.admins.unshift(admin);
-                            commonService.showMessage("新建用户成功,默认密码为123456");
+                            commonService.showInfo("正在新建用户...");
+                            $timeout(function () {
+                                $scope.admins.unshift(admin);
+                                $scope.queryAdmin();
+                                commonService.showMessage("新建用户成功,默认密码为123456");
+                            },1000);
                         });
 					}
 					// else

@@ -17,7 +17,12 @@ public class AdminSpec extends STSpecification<Admin, AdminCondition> {
 
 	@Override
 	protected void addCondition(QueryWraper<Admin> queryWraper) {
+
 		addLikeCondition(queryWraper, "username");
+		addLikeCondition(queryWraper,"email");
+		addLikeCondition(queryWraper,"phone");
+
 	}
+
 
 }
