@@ -117,6 +117,22 @@ angular.module('common', ['ui.bootstrap', 'ui.uploader']).service("commonService
 			}
 		});
 	};
+
+    this.showSharingConfirm = function(title, message) {
+        return $uibModal.open({
+            templateUrl : 'views/commons/applySharing.html',
+            controller: 'confirmCtrl',
+            resolve: {
+                title : function() {
+                    return title;
+                },
+                message : function() {
+                    return message;
+                }
+            }
+        });
+    };
+
 	/*
 	 * 用于显示一个消息给用户。
 	 * 注意：用这个方法显示的消息都是操作成功的消息，如果服务器抛出异常，系统会自动显示错误消息，不需要开发人员处理

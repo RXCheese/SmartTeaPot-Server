@@ -60,9 +60,7 @@ public class StatusServiceImpl implements StatusService {
 
     @Override
     public Page<Status> findAll(StatusCondition condition,Pageable pageable) {
-        Page<Status> statuses;
-        statuses = statusRepository.findAll(new StatusSpec(condition),pageable);
-
+        Page<Status> statuses = statusRepository.findAll(new StatusSpec(condition),pageable);
         return QueryResultConverter.convert(statuses, Status.class,statuses.getPageable());
     }
 

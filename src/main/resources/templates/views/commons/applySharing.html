@@ -1,0 +1,22 @@
+<style>
+	.modal-dialog {
+			 width: 400px;
+			 margin:50px auto;
+		 }
+</style>
+<div class="modal-header">
+	<h4 class="modal-title">{{title}}</h4>
+</div>
+<div class="modal-body" ng-show="message != null">
+	<div><h4>味道名称：{{message.configName}}</h4></div></br>
+	<div><h4>分享者：{{message.author}}</h4></div></br>
+	<div><h4>茶叶：{{message.leaf}}</h4></div></br>
+	<div><h4>泡茶温度：{{message.temperature}}℃</h4></div></br>
+	<div><h4>泡茶浓度：{{message.taste}}</h4></div></br>
+	<div><h4>泡茶时长:{{message.constantTime}}</h4></div></br>
+	<div><h5>点击"确认"后享受该味道</h5></div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" type="button" ng-click="ok()">确认</button>
+	<button class="btn btn-default" type="button" ng-click="cancel()">取消</button>
+</div>

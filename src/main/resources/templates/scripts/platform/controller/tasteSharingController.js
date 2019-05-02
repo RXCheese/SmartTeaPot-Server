@@ -130,8 +130,7 @@ angular.module('platform').controller('tasteSharingCtrl', function ($scope, $uib
             heatintSwitch: "开"
         };
 
-        commonService.showConfirm("享受至臻味道——[" + sharing.configName + "]",
-            "[泡茶温度：" + sharing.temperature + "℃]，[浓度：" + sharing.taste + "]，[泡茶时长:" + sharing.constantTime + "]").result.then(function (value) {
+        commonService.showSharingConfirm("享受至臻味道",sharing).result.then(function (value) {
 
         }).then(function (value) {
             potRestService.executeOpeation(temp).$promise.then(function (response) {
