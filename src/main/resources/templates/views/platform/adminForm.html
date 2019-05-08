@@ -20,7 +20,7 @@
                     <div class="col-lg-9">
                         <div>
                             <select name="roleId" ng-model="admin.roleId" ng-disabled="roleDisabled"
-                                    ng-options="role.id as role.name for role in roles | filter: '!超级管理员'" class="form-control input-sm"
+                                    ng-options="role.id as role.name for role in roles" class="form-control input-sm"
                                     required>
                                 <option value="" hidden></option>
                             </select>

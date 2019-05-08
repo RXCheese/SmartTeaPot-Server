@@ -129,9 +129,19 @@ angular.module('platform').controller('adminManageCtrl', function($scope, $uibMo
 	
 }).controller('adminFormCtrl',function ($scope, $uibModalInstance, admin, roles, type) {
 
+	var temp = [];
+    for (var i = 0; i < roles.length; i++)
+    {
+        if (roles[i].name === "超级管理员")
+		{
+
+		}else {
+			temp.push(roles[i]);
+		}
+    }
 
 	$scope.admin = admin;
-	$scope.roles = roles;
+	$scope.roles = temp;
 	$scope.type = type;
 
 	$scope.roleDisabled = false;

@@ -230,7 +230,7 @@ public class GizwitsOpenApi {
 
         Map<String, String> headersMap = new HashMap<>(8);
         headersMap.put("X-Gizwits-Application-Id", gizwitsOpenApiProperties.getAppId());
-        headersMap.put("X-Gizwits-User-token", gizwitsOpenApiProperties.getUserToken());
+        headersMap.put("X-Gizwits-User-token", gizwitsUser.getToken());
         headersMap.put("Content-Type", "application/json");
         headersMap.put("cache-control", "no-cache");
 
@@ -280,14 +280,16 @@ public class GizwitsOpenApi {
         JSONObject body = new JSONObject();
 
         if(heatintSwitch == null)
-            body.put("heatintSwitch","");
+        {
+            //            body.put("heatintSwitch","");
+        }
         else {
             if(heatintSwitch.equals("开"))
                 body.put("heatintSwitch",true);
             else if(heatintSwitch.equals("关"))
                 body.put("heatintSwitch",false);
-            else
-                body.put("heatintSwitch","");
+//            else
+//                body.put("heatintSwitch","");
         }
 
         body.put("taste", taste);
@@ -299,7 +301,7 @@ public class GizwitsOpenApi {
         headersMap.put("cache-control", "no-cache");
         headersMap.put("Content-Type", "application/json");
         headersMap.put("X-Gizwits-Application-Id", gizwitsOpenApiProperties.getAppId());
-        headersMap.put("X-Gizwits-User-token", gizwitsOpenApiProperties.getUserToken());
+        headersMap.put("X-Gizwits-User-token", gizwitsUser.getToken());
 
 
         String result =requestUtil.postSyn(gizwitsOpenApiProperties.getUrl() +"/control/"

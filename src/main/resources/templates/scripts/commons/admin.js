@@ -21,7 +21,7 @@ angular.module('admin', [
 //应用配置	
 .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 	//路由定义
-	$urlRouterProvider.otherwise("/index");
+	$urlRouterProvider.otherwise("/index/potManage");
 	$stateProvider.state('index', {
 		url: "/index",
 		templateUrl: "views/main.html"

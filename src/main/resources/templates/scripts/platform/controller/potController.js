@@ -103,6 +103,7 @@ angular.module('platform').controller('potManageCtrl', function ($scope, $uibMod
 
 
     $scope.getLatestStatus = function () {
+        commonService.showInfo("正在获取设备最新状态...");
         $scope.status = potRestService.getLatestStatus();
         potRestService.getOnline().$promise.then(function (value) {
             if (value['online'] === "true")
@@ -114,6 +115,7 @@ angular.module('platform').controller('potManageCtrl', function ($scope, $uibMod
                     $scope.extBtn = false;
                     $scope.getBtn = false;
                     $scope.getTempData();
+                    commonService.showMessage("状态更新成功");
                 },2000);
             }
             else
