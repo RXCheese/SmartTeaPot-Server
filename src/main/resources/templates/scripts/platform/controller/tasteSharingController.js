@@ -6,6 +6,7 @@ angular.module('platform').controller('tasteSharingCtrl', function ($scope, $uib
     $scope.sharingPageInfo.totalPages = 0;
     $scope.sharingPageInfo.size = 15;
     $scope.sharingPageInfo.maxSize = 15;
+    $scope.sharingPageInfo.page = 1;
 
     $scope.isConditionCollapsed = true;
 

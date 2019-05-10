@@ -68,7 +68,7 @@
 
                     <div >连接状态：<a ng-style="{'color': isOnline}" >{{status.online}}</a></div><hr/>
 
-                    <div >工作状态：<a >{{status.heatingOrNot}}</a></div><br/>
+                    <div >工作状态：<a ng-style="{'color': isHeating}">{{status.heatingOrNot}}</a></div><br/>
 
                     <div >电源开关：
                         <a style="color: green" ng-if="status.heatintSwitch==='开'">
@@ -88,7 +88,7 @@
                     <button ng-click="getLatestStatus()" class="btn btn-success btn-sm" ng-disabled="getBtn" >
                         <i class="fa fa-refresh m-right-xs"></i>更新状态
                     </button>
-                    <button  ng-click="autoStatus(auto)" class="btn btn-success btn-sm" >
+                    <button  ng-click="autoStatus(auto)" class="btn btn-success btn-sm" ng-disabled="getBtn" >
                         <i class="fa fa-spinner m-right-xs"></i>自动更新状态
                     </button>
                 </div>

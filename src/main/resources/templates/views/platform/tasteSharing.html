@@ -81,7 +81,7 @@
                             </thead>
                             <tbody>
 <tr ng-repeat="sharing in sharings">
-    <td>{{$index+1}}</td>
+    <td>{{$index+1+(sharingPageInfo.page-1)*15}}</td>
     <td>{{sharing.configName}}</td>
     <td>{{sharing.author}}</td>
     <td>{{sharing.leaf}}</td>

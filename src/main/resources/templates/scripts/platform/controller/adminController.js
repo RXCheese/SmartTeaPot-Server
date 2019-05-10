@@ -2,7 +2,9 @@
 angular.module('platform').controller('adminManageCtrl', function($scope, $uibModal, $timeout,adminRestService, roleRestService, commonService) {
 	
 	$scope.pageInfo = commonService.getDefaultPageSetting();
-	
+
+	$scope.pageInfo.page = 1;
+
 	$scope.isConditionCollapsed = true;
 	
 	$scope.queryRole = function() {

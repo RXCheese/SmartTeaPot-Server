@@ -44,7 +44,8 @@
                                         <select ng-model="dataCondition.heatingOrNot"  class="form-control input-sm">
                                             <option value="">状态</option>
                                             <option value="待机">待机</option>
-                                            <option value="工作中">工作中</option>
+                                            <option value="加热中">加热中</option>
+                                            <option value="恒温中">恒温中</option>
                                         </select>
                                         <select ng-model="dataCondition.heatintSwitch"  class="form-control input-sm">
                                             <option value="" >电源</option>
@@ -117,7 +118,7 @@
                             </thead>
                             <tbody>
                             <tr ng-repeat = " ad in allData ">
-                                <td>{{$index+1}}</td>
+                                <td>{{$index+1+(dataPageInfo.page-1)*15}}</td>
                                 <td>{{ad.updatedAt}}</td>
                                 <td style="color: green" ng-if="ad.online==='在线'">
                                     {{ad.online}}</td>

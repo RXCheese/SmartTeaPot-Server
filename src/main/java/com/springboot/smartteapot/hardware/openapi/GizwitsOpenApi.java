@@ -281,15 +281,22 @@ public class GizwitsOpenApi {
 
         if(heatintSwitch == null)
         {
-            //            body.put("heatintSwitch","");
+            System.out.println("heatintSwitch is Null");
         }
         else {
             if(heatintSwitch.equals("开"))
-                body.put("heatintSwitch",true);
-            else if(heatintSwitch.equals("关"))
+            {
+                if(getLatestStatus().getHeatintSwitch().equals("0"))
+                {
+                    body.put("heatintSwitch",true);
+                } else {
+                    System.out.println("heatintSwitch is true, teapot working...");
+                }
+            }
+            else //if(heatintSwitch.equals("关"))
+            {
                 body.put("heatintSwitch",false);
-//            else
-//                body.put("heatintSwitch","");
+            }
         }
 
         body.put("taste", taste);

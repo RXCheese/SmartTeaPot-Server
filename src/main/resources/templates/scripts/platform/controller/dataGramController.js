@@ -7,6 +7,7 @@ angular.module('platform').controller('dataGramCtrl', function($scope, $log, $ui
     $scope.dataPageInfo.totalPages = 0;
     $scope.dataPageInfo.size = 15;
     $scope.dataPageInfo.maxSize = 15;
+    $scope.dataPageInfo.page = 1;
 
     $scope.isConditionCollapsed = true;
 

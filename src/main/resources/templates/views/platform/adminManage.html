@@ -57,7 +57,7 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat = "admin in admins">
-							<td>{{$index+1}}</td>
+							<td>{{$index+1+(pageInfo.page-1)*pageInfo.size}}</td>
 							<td>{{admin.username}}</td>
 							<td>{{admin.roleName}}</td>
 							<td>{{admin.email}}</td>

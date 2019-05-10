@@ -104,7 +104,14 @@ angular.module('platform').controller('potManageCtrl', function ($scope, $uibMod
 
     $scope.getLatestStatus = function () {
         commonService.showInfo("正在获取设备最新状态...");
-        $scope.status = potRestService.getLatestStatus();
+        potRestService.getLatestStatus().$promise.then(function (value) {
+            $scope.status = value;
+            if (value['heatingOrNot'] === "加热中")
+                $scope.isHeating = "red";
+            else
+                $scope.isHeating = "green";
+        });
+
         potRestService.getOnline().$promise.then(function (value) {
             if (value['online'] === "true")
             {
@@ -120,6 +127,9 @@ angular.module('platform').controller('potManageCtrl', function ($scope, $uibMod
             }
             else
             {
+                $timeout(function () {
+                    $scope.status.online = "离线——(当前数据为离线前最新状态)";
+                },500);
                 $scope.isOnline = "red";
                 $scope.extBtn = true;
                 commonService.showError("设备已离线");
@@ -249,8 +259,11 @@ angular.module('platform').controller('potManageCtrl', function ($scope, $uibMod
     $scope.autoStatus = function (auto) {
         if (auto)
         {
+            $scope.getLatestStatus();
+            $scope.getTempData();
             $scope.task = $interval(function () {
                 $scope.getLatestStatus();
+                $scope.getTempData();
                 //console.log("autoStatusTask running");
             },10000);
             $scope.auto = false;
