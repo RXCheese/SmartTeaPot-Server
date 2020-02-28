@@ -1,2 +1,2 @@
 # SmartTeaPot-Server
-Graduated design: SmartTeaPot-Server
+Angular & SpringBoot
